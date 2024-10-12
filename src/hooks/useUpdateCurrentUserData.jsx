@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useAccount, useReadContract } from "wagmi";
 import { BasedPayAbi, BasedPayAddress } from "@/constants/constants";
-import { useWeb3Project, useServiceProvider, useCustomer } from "../../store"; // Adjust the import path as needed
+import { useWeb3Project, useServiceProvider, useCustomer } from "../../store"; 
 
 export default function useUpdateCurrentUserData(userAddress) {
   const [isSuccess, setIsSuccess] = useState(false);

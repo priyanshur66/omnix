@@ -2,13 +2,17 @@
 
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { useRouter } from 'next/navigation' 
+import { useRouter } from 'next/navigation'
 import Navbar from '@/components/Navbar'
 import { usePaymentAmount } from '../../../store'
+import useReadFromBasePayContract from "@/hooks/useReadFromBasePayContract"
+import { useAccount } from 'wagmi'
 
 export default function Component() {
+  const {address} = useAccount()
   const [originalPrice, setOriginalPrice] = useState(0)
-  const router = useRouter() 
+
+  const router = useRouter()
 
 
   const boxes = [
@@ -16,10 +20,13 @@ export default function Component() {
     { title: 'Signup for platform x', price: 50, link: '/platform-x' },
     { title: 'Try application y', price: 30, link: '/application-y' },
   ]
+  const all = useReadFromBasePayContract({funcName:"allServiceProviders", paraArr:[]})
+  console.log("response is ",all)
 
   useEffect(() => {
     const maxBoxPrice = Math.max(...boxes.map(box => box.price))
     setOriginalPrice(Math.floor(Math.random() * (100 - maxBoxPrice)) + maxBoxPrice + 1)
+   
   }, [])
 
   const containerVariants = {
@@ -52,9 +59,9 @@ export default function Component() {
     }
   }
 
- 
+
   const handleBoxClick = (link) => {
-    router.push(link) 
+    router.push(link)
   }
   const { paymentAmount, setPaymentAmount } = usePaymentAmount();
   return (
@@ -78,7 +85,7 @@ export default function Component() {
                 className="bg-gray-800 p-6 rounded-lg shadow-lg cursor-pointer"
                 variants={boxVariants}
                 whileHover="hover"
-                onClick={() => handleBoxClick(box.link)} 
+                onClick={() => handleBoxClick(box.link)}
               >
                 <h3 className="text-xl font-semibold text-white mb-4">{box.title}</h3>
                 <p className="text-3xl font-bold text-green-400">${box.price}</p>
