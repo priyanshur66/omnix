@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import Script from 'next/script'
 import { useRouter } from 'next/navigation'
-
+import { usePaymentAmount } from '../../../store'
 export default function Component() {
   const router = useRouter()
   const [originalPrice] = useState(80)
@@ -67,7 +67,7 @@ export default function Component() {
       setIsPlaying(false)
     }
   }
-
+  const { paymentAmount, setPaymentAmount } = usePaymentAmount();
   return (
     <div className="bg-gray-900 min-h-screen flex flex-col items-center justify-center p-4">
       <Script src="https://www.youtube.com/iframe_api" />
@@ -78,7 +78,7 @@ export default function Component() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        ORIGINAL PRICE: ${originalPrice}
+        ORIGINAL PRICE: ${paymentAmount}
       </motion.h2>
       
       <motion.div 

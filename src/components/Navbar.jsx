@@ -47,9 +47,13 @@ export default function Navbar() {
        // console.log("checking for path ",route)
 
         router.push("/roles")
+      }else if(userType==="serviceProvider" && route === "/"){
+        router.push("/commissions-dashboard")
+      }else if(userType==="customer" && route === "/"){
+        router.push("/usenetwork")
       }
-     // console.log("User type is:", userType);
-    }
+     console.log("User type is:", userType);
+    } 
   }, [userType]);
 
   

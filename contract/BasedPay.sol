@@ -26,13 +26,13 @@ contract BasedPay {
     struct ServiceProvider {
         string serviceProviderName;
         string serviceType;
-        address providerWalletAddress; // 20% of the value of the promotions redeemed through the provider's code will go to this address 
+        address providerWalletAddress; // 20% of the value of the promotions redeemed through the provider's code will go to this address
         string locationOfService;
         string providerCode; // auto genertaed by backend to uiquely identify a service provider
+        uint256 commissionEarned;
     }
     struct Customer {
         string name;
-        string interests;
         address customerWalletAddress;
     }
 
@@ -46,18 +46,15 @@ contract BasedPay {
 
     mapping(address => uint256) public web3ProjectAddToRewardPerUser;
 
+    ServiceProvider[] public allServiceProviders;
+
     // Function to create a customer
 
-    function createCustomer(
-        string memory _name,
-        string memory _interests,
-        address _customerWalletAddress
-    ) public returns (Customer memory) {
-        Customer memory customer = Customer(
-            _name,
-            _interests,
-            _customerWalletAddress
-        );
+    function createCustomer(string memory _name, address _customerWalletAddress)
+        public
+        returns (Customer memory)
+    {
+        Customer memory customer = Customer(_name, _customerWalletAddress);
         usdt.approve(_customerWalletAddress, 10000000000000000000);
         usdt.mintForDemo(_customerWalletAddress);
         addressToCustomer[_customerWalletAddress] = customer;
@@ -77,12 +74,14 @@ contract BasedPay {
             _serviceType,
             _providerWalletAddress,
             _locationOfService,
-            _providerCode
+            _providerCode,
+            0
         );
         usdt.approve(_providerWalletAddress, 10000000000000000000);
         usdt.mintForDemo(_providerWalletAddress);
         addressToServiceProvider[_providerWalletAddress] = serviceProvider;
         codeToServiceProviderWallet[_providerCode] = _providerWalletAddress;
+        allServiceProviders.push(serviceProvider);
         return serviceProvider;
     }
 
@@ -118,6 +117,8 @@ contract BasedPay {
         return web3Project;
     }
 
+
+
     function returnUserType(address _userAddress)
         public
         view
@@ -145,24 +146,31 @@ contract BasedPay {
         return userType;
     }
 
-    // amount left after sponsorship is first paid by directly calling the usdt contract then this func transfers the remainig amount     
+    // amount left after sponsorship is first paid by directly calling the usdt contract then this func transfers the remainig amount
     function payToProvider(
         address _serviceProviderAddress,
         address _web3ProjectAddress
     ) public returns (bool) {
-      
         uint256 _amountPaidByWeb3Project = web3ProjectAddToRewardPerUser[
             _web3ProjectAddress
         ];
         Web3Project memory web3Project = addressToWeb3Project[
             _web3ProjectAddress
         ];
-        require(web3Project.remainingBalance>_amountPaidByWeb3Project,"Sponsored balance low");
+        ServiceProvider memory serviceProvider = addressToServiceProvider[
+            _serviceProviderAddress
+        ];
+        require(
+            web3Project.remainingBalance > _amountPaidByWeb3Project,
+            "Sponsored balance low"
+        );
         //usdt.transfer(address(this), _amountPaidByCustomer);
         usdt.transfer(_serviceProviderAddress, _amountPaidByWeb3Project);
         web3Project.remainingBalance = (
             (web3Project.remainingBalance - _amountPaidByWeb3Project)
         );
+        serviceProvider.commissionEarned = (serviceProvider.commissionEarned +
+            (_amountPaidByWeb3Project));
         return true;
     }
 }

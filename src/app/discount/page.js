@@ -4,10 +4,12 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation' 
 import Navbar from '@/components/Navbar'
+import { usePaymentAmount } from '../../../store'
 
 export default function Component() {
   const [originalPrice, setOriginalPrice] = useState(0)
   const router = useRouter() 
+
 
   const boxes = [
     { title: 'Watch ad for a token', price: 60, link: '/watchAd' },
@@ -54,14 +56,14 @@ export default function Component() {
   const handleBoxClick = (link) => {
     router.push(link) 
   }
-
+  const { paymentAmount, setPaymentAmount } = usePaymentAmount();
   return (
     <div className='bg-gray-900'>
       <Navbar />
       <div className="bg-gray-900 min-h-screen flex items-center justify-center p-4">
         <div className="w-full max-w-4xl">
           <h2 className="text-5xl font-bold text-center text-green-400 -mt-40 mb-8">
-            ORIGINAL PRICE: ${originalPrice}
+            ORIGINAL PRICE: ${paymentAmount}
           </h2>
 
           <motion.div

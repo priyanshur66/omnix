@@ -12,6 +12,7 @@ import {
   TransactionSponsor,
   TransactionStatus,
   TransactionStatusAction,
+  TransactionToastLabel,
   TransactionStatusLabel,
 } from "@coinbase/onchainkit/transaction";
 import type { LifecycleStatus } from "@coinbase/onchainkit/transaction";
@@ -77,7 +78,8 @@ export default function Component() {
   };
 
   const handleSuccess = (response: TransactionResponse) => {
-    console.log("Transaction successful", response);
+    router.push("/services-joined-success");
+    //console.log("Transaction successful", response);
   };
 
   const handleFileChange = (e) => {
@@ -257,7 +259,8 @@ export default function Component() {
         >
           <TransactionButton className="mt-0 mr-auto ml-auto w-[450px] max-w-full text-[white]" />
           <TransactionStatus>
-            <TransactionStatusLabel />
+          <TransactionToastLabel/> 
+            <TransactionStatusLabel  />
             <TransactionStatusAction />
           </TransactionStatus>
         </Transaction>
