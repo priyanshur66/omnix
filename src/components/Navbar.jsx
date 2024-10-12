@@ -21,26 +21,34 @@ import { color } from '@coinbase/onchainkit/theme';
 import { BasedPayAbi,BasedPayAddress } from "@/constants/constants";
 import { useEffect,useState } from "react";
 import { useRouter } from "next/navigation";
+import { useAccount } from "wagmi";
+import { usePathname } from 'next/navigation'
 
 
 
 export default function Navbar() {
 
   const router = useRouter()
+  const { address } = useAccount();
+  const route = usePathname();
+
 
   const { data: userType, isError, isLoading } = useReadContract({
     abi: BasedPayAbi,
     address: BasedPayAddress,
     functionName: 'returnUserType',
-    args: ['0x063145aa5f16FAD2C8179c1E0Ff1a1a39D95AF9d'],
+    args: [address],
   });
 
   useEffect(() => {
     if (userType !== undefined) {
-      if(userType==="new"){
+      if(userType==="new" && route === "/") {
+        console.log("checking for user adresss",address)
+       // console.log("checking for path ",route)
+
         router.push("/roles")
       }
-      console.log("User type is:", userType);
+     // console.log("User type is:", userType);
     }
   }, [userType]);
 
