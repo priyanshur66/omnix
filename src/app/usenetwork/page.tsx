@@ -28,7 +28,7 @@ import {
   SampleUsdtAddress,
 } from "../../constants/constants";
 import type { Address, ContractFunctionParameters } from "viem";
-import { usePaymentAmount, useServiceProviderCode } from "../../../store";
+import { usePaymentAmount, useServiceProviderCode ,useCustomer } from "../../../store";
 export default function Use() {
   const [qrCode, setQrCode] = useState("");
   const [code, setCode] = useState("");
@@ -110,11 +110,16 @@ export default function Use() {
   const { paymentAmount, setPaymentAmount } = usePaymentAmount();
   const { serviceProviderCode, setServiceProviderCode } =
     useServiceProviderCode();
+  const {customerWalletAddress,name} = useCustomer()
+  console.log("customer name",name)
 
   return (
     <div className="bg-gray-900">
       <div className="bg-gray-900 min-h-screen flex items-center justify-center p-4">
         <div className="w-full -mt-12 max-w-md">
+        <h2 className="text-5xl font-bold text-white mb-6 text-center">
+            Hey {name}
+          </h2>
           <h2 className="text-5xl font-bold text-white mb-6 text-center">
             QR Code Scanner
           </h2>

@@ -49,7 +49,7 @@ const NameInputPopup = () => {
       address: BasedPayAddress,
       abi: BasedPayAbi,
       functionName: "createCustomer",
-      args: ["akash", "cp", address],
+      args: ["akash", address],
     },
   ] as unknown as ContractFunctionParameters[];
 
