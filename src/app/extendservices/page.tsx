@@ -35,11 +35,11 @@ export default function Component() {
   const router = useRouter();
   const { address } = useAccount();
   const [formData, setFormData] = useState({
-    serviceProviderName: "s",
-    serviceType: "s",
+    serviceProviderName: "",
+    serviceType: "",
     providerWalletAddress: address,
-    locationOfService: "s",
-    providerCode: "s",
+    locationOfService: "",
+    providerCode: "",
   });
 
   const handleChange = (e) => {
