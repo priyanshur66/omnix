@@ -34,9 +34,10 @@ import type { Address, ContractFunctionParameters } from "viem";
 
 export default function Advertisement() {
   const router = useRouter();
+  const { address } = useAccount();
   const [formData, setFormData] = useState({
     projectName: "",
-    projectWalletAddress: "",
+    projectWalletAddress: address,
     video: "",
     link: "",
     totalBudget: "",
@@ -63,7 +64,6 @@ export default function Advertisement() {
   };
 
   // contracts interaction
-  const { address } = useAccount();
 
   const handleOnStatus = useCallback((status: LifecycleStatus) => {
     console.log("LifecycleStatus", status);
@@ -74,7 +74,17 @@ export default function Advertisement() {
       address: BasedPayAddress,
       abi: BasedPayAbi,
       functionName: "createWeb3Project",
-      args: [BasedPayAddress, 100000],
+      args: [
+        formData.projectName,
+        formData.projectWalletAddress,
+        formData.video,
+        formData.link,
+        formData.totalBudget,
+        formData.rewardPerUser,
+        formData.duration,
+        formData.eligibleForAirdrops,
+        formData.promotionType,
+      ],
     },
   ] as unknown as ContractFunctionParameters[];
 
