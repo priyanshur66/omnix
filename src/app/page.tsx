@@ -19,6 +19,7 @@ import {
 } from '@coinbase/onchainkit/identity';
 import { color } from '@coinbase/onchainkit/theme';
 import TransactionComponents from '@/components/tTest';
+import Landing from "./landing/page"
 function App() {
   const account = useAccount()
   const { connectors, connect, status, error } = useConnect()
@@ -26,7 +27,7 @@ function App() {
 
   return (
     <>
-      <Wallet>
+      {/* <Wallet>
   <ConnectWallet>
     <Avatar className="h-6 w-6" />
     <Name />
@@ -52,7 +53,10 @@ function App() {
     <WalletDropdownDisconnect />
   </WalletDropdown>
 </Wallet>
-<TransactionComponents/>
+<TransactionComponents/> */}
+<div className=" items-center justify-items-center min-h-screen  ">
+      <Landing />
+    </div>
     </>
   )
 }

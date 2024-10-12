@@ -460,7 +460,7 @@ export const BasedPayAbi = [
         "type": "function"
     }
 ]
-export const BasedPayAddress = "0xBD9406d1338c8a670041822A2c77ff278E1f68E1"
+export const BasedPayAddress = "0xc075657B57Da9d507a02dA87203B956F2088085F"
 export const SampleUsdtAbi = [
     {
         "inputs": [],
@@ -789,4 +789,4 @@ export const SampleUsdtAbi = [
         "type": "function"
     }
 ]
-export const SampleUsdtAddress = "0xA04271d4369aEFfFdC9a732D8852c8442124a461"
+export const SampleUsdtAddress = "0x307A8eeb369A13acabf52f7544F401e4719729D6"

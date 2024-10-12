@@ -12,13 +12,13 @@ export default function Landing() {
         <div className="container mx-auto px-6 py-20 relative">
           <div className="max-w-3xl ml-20">
             <h1 className="text-6xl font-bold mb-6">
-              Future of Marketing with BasedPay by Base.
+              Future of WEB3 Marketing with BasedPay on Base.
             </h1>
             <p className="text-xl mb-8">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sem elit, cursus ut velit nec, porta consequat massa. Suspendisse vitae lacus eros. Nulla nisl elit, molestie in congue sed, dignissim et nisl. 
             </p>
             <button className="bg-white text-black px-8 py-3 rounded-full text-lg font-semibold hover:bg-gray-200">
-              earn x points
+              get instant on your daily purchases
             </button>
           </div>
   

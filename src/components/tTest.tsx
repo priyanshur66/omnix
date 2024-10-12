@@ -17,8 +17,9 @@ import type {
 } from '@coinbase/onchainkit/transaction';
 
 import { BASE_SEPOLIA_CHAIN_ID,
-  mintABI,
-  mintContractAddress,}from "../constants/constants"
+  BasedPayAddress,
+  SampleUsdtAbi,
+  SampleUsdtAddress,}from "../constants/constants"
   import type { Address, ContractFunctionParameters } from 'viem';
  
 export default function TransactionComponents() {
@@ -33,10 +34,10 @@ export default function TransactionComponents() {
 
   const contracts = [
     {
-      address: mintContractAddress,
-      abi: mintABI,
-      functionName: 'store',
-      args: [23],
+      address: SampleUsdtAddress,
+      abi: SampleUsdtAbi,
+      functionName: 'approve',
+      args: [BasedPayAddress,100000],
     },
   ] as unknown as ContractFunctionParameters[];
 
