@@ -20,11 +20,13 @@ import {
 import { color } from '@coinbase/onchainkit/theme';
 import { BasedPayAbi,BasedPayAddress } from "@/constants/constants";
 import { useEffect,useState } from "react";
+import { useRouter } from "next/navigation";
 
 
 
 export default function Navbar() {
-  const [userTypee, setUserType] = useState(null);
+
+  const router = useRouter()
 
   const { data: userType, isError, isLoading } = useReadContract({
     abi: BasedPayAbi,
@@ -35,7 +37,9 @@ export default function Navbar() {
 
   useEffect(() => {
     if (userType !== undefined) {
-      setUserType(userType);
+      if(userType==="new"){
+        router.push("/roles")
+      }
       console.log("User type is:", userType);
     }
   }, [userType]);

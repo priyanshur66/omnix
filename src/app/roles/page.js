@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Navbar from '@/components/Navbar'
 
+
 export default function Roles() {
   const [hoveredBox, setHoveredBox] = useState(null)
   const router = useRouter()
@@ -12,7 +13,7 @@ export default function Roles() {
   const boxes = [
     { 
       id: 1, 
-      title: 'use promo pay', 
+      title: 'Pay using BasedPay', 
       content: 'Leverage our advanced network for seamless transactions',
       icon: (
         <svg className="w-12 h-12 mb-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -23,7 +24,7 @@ export default function Roles() {
     },
     { 
       id: 2, 
-      title: 'Advertise Base App', 
+      title: 'Onboard users to my web3 App', 
       content: 'Promote your Base application to a wider audience',
       icon: (
         <svg className="w-12 h-12 mb-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
