@@ -109,20 +109,22 @@ export default function Advertisement() {
           <div className="grid md:grid-cols-2 gap-6">
             <div>
               <div className="mb-4">
-                <label
-                  htmlFor="video"
+              <label
+                  htmlFor="title"
                   className="block text-sm font-medium text-gray-300 mb-2"
                 >
-                  Upload Video
+                  Title
                 </label>
                 <input
-                  type="file"
-                  id="video"
-                  name="video"
-                  accept="video/*"
+                  type="text"
+                  id="title"
+                  name="title"
+                  value={formData.projectName}
                   onChange={handleChange}
                   className="w-full px-3 py-2 text-gray-300 bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Enter title"
                 />
+                
               </div>
 
               <div className="mb-4">
@@ -164,20 +166,20 @@ export default function Advertisement() {
 
             <div>
               <div className="mb-4">
-                <label
-                  htmlFor="title"
+              <label
+                  htmlFor="video"
                   className="block text-sm font-medium text-gray-300 mb-2"
                 >
-                  Title
+                  Promotional Video
                 </label>
                 <input
                   type="text"
-                  id="title"
-                  name="title"
-                  value={formData.title}
+                  id="video"
+                  name="video"
+                  value={formData.video}
                   onChange={handleChange}
                   className="w-full px-3 py-2 text-gray-300 bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter title"
+                  placeholder="Enter video"
                 />
               </div>
 
