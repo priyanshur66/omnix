@@ -156,7 +156,7 @@ export default function Component() {
                 htmlFor="location"
                 className="block text-sm font-medium text-gray-300 mb-2"
               >
-                Location for Charger
+                Location of Services
               </label>
               <input
                 type="text"
@@ -192,13 +192,13 @@ export default function Component() {
                 htmlFor="ratePerHour"
                 className="block text-sm font-medium text-gray-300 mb-2"
               >
-                RATE PER HR
+                Provider Name
               </label>
               <input
                 type="number"
-                id="ratePerHour"
-                name="ratePerHour"
-                value={formData.providerCode}
+                id="providerName" //ye rate per hour tha pehle
+                name="providerName"
+                value={formData.serviceProviderName}
                 onChange={handleChange}
                 className="w-full px-3 py-2 text-gray-300 bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter rate per hour"
@@ -234,7 +234,7 @@ export default function Component() {
                 type="number"
                 id="commission"
                 name="commission"
-                value={formData.providerCode}
+                value={formData.providerWalletAddress}
                 onChange={handleChange}
                 className="w-full px-3 py-2 text-gray-300 bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter your commission"
@@ -242,15 +242,7 @@ export default function Component() {
             </div>
           </div>
 
-          {/* <button
-            type="submit"
-            onClick={handleExtend}
-            className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200"
-          >
-            Join Network
-          </button> */}
-        </form>
-        <Transaction
+          <Transaction
           contracts={contracts}
           className="w-[450px]"
           chainId={BASE_SEPOLIA_CHAIN_ID}
@@ -264,6 +256,8 @@ export default function Component() {
             <TransactionStatusAction />
           </TransactionStatus>
         </Transaction>
+        </form>
+        
       </div>
     </div>
   );

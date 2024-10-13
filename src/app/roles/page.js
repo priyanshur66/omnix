@@ -20,7 +20,7 @@ export default function Roles() {
           <path d="M13 10V3L4 14H11V21L20 10H13Z" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
       ),
-      link: '/usenetwork'
+      link: '/customer-onboard'
     },
     { 
       id: 2, 
