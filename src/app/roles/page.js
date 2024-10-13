@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Navbar from '@/components/Navbar'
-import NameInputPopup from "@/components/NameInputPopup"
+
 
 export default function Roles() {
   const [hoveredBox, setHoveredBox] = useState(null)
@@ -75,7 +75,7 @@ export default function Roles() {
     <div className='bg-gray-900 relative'>
       <Navbar />
       <div className="absolute top-0 left-0 w-full z-50">
-        <NameInputPopup/>
+      
       </div>
       <div className="bg-gray-900 min-h-screen flex items-center justify-center p-4">
         <div className="w-full max-w-4xl -mt-36">

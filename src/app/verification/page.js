@@ -3,12 +3,12 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
-
+import { usePaymentAmount, usePromotionalVideoUrlState } from '../../../store'
 export default function Component() {
   const [verificationStatus, setVerificationStatus] = useState('waiting')
   const [showRedirect, setShowRedirect] = useState(false)
   const router = useRouter()
-
+  const { paymentAmount } = usePaymentAmount();
   useEffect(() => {
     const verificationTimer = setTimeout(() => {
       setVerificationStatus('complete')
@@ -77,7 +77,7 @@ export default function Component() {
 
   return (
     <div className="bg-gray-900 min-h-screen flex flex-col items-center justify-center p-4">
-      <h1 className="text-3xl font-bold text-green-400 mb-8">ORIGINAL PRICE: $69</h1>
+      <h1 className="text-3xl font-bold text-green-400 mb-8">  Original Amount: ${paymentAmount}</h1>
       
       <motion.div
         className="bg-gray-800 rounded-lg p-8 shadow-lg mb-8 w-full max-w-2xl aspect-video flex flex-col items-center justify-center"
@@ -151,7 +151,7 @@ export default function Component() {
         animate={{ opacity: 1 }}
         transition={{ delay: 5, duration: 0.5 }}
       >
-        Link for application
+        Link To try out application
       </motion.a>
     </div>
   )

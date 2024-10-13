@@ -1,33 +1,66 @@
-'use client'
+"use client"
+import React, { useState, useEffect, useCallback } from 'react';
+import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
+import Navbar from '@/components/Navbar';
+import { usePaymentAmount, usePromotionalVideoUrlState, usePaymentSponsorState,useDiscountAmount } from '../../../store';
+import useReadFromBasePayContract from "@/hooks/useReadFromBasePayContract";
+import { useAccount } from 'wagmi';
 
-import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
-import { useRouter } from 'next/navigation'
-import Navbar from '@/components/Navbar'
-import { usePaymentAmount } from '../../../store'
-import useReadFromBasePayContract from "@/hooks/useReadFromBasePayContract"
-import { useAccount } from 'wagmi'
-
-export default function Component() {
-  const {address} = useAccount()
-  const [originalPrice, setOriginalPrice] = useState(0)
-
-  const router = useRouter()
-
+export default function Dashboard() {
+  const { address } = useAccount();
+  const [originalPrice, setOriginalPrice] = useState(0);
+  const [allProjects, setAllProjects] = useState([]);
+  const { promotionalVideoUrl, setPromotionalVideoUrl } = usePromotionalVideoUrlState();
+  const router = useRouter();
+  const { paymentAmount } = usePaymentAmount();
+  const { setPaymentSponsorAddress } = usePaymentSponsorState();
+  const { discountAmount,setDiscountAmount } = useDiscountAmount();
 
   const boxes = [
-    { title: 'Watch ad for a token', price: 60, link: '/watchAd' },
+    { title: 'Watch ad for a token', price: (discountAmount*0.8), link: '/watchAd' },
     { title: 'Signup for platform x', price: 50, link: '/platform-x' },
     { title: 'Try application y', price: 30, link: '/application-y' },
-  ]
-  const all = useReadFromBasePayContract({funcName:"allWeb3Project", paraArr:[]})
-  console.log("response is ",all)
+  ];
+
+  const getHighestRewardPerUserProject = useCallback((projects) => {
+    let highestRewardProject = null;
+    let highestRewardPerUser = 0;
+    let promotionVideoUrl = null;
+
+    projects?.forEach(project => {
+      const rewardPerUser = project.rewardPerUser;
+
+      if (rewardPerUser > highestRewardPerUser) {
+        highestRewardPerUser = rewardPerUser;
+        highestRewardProject = project.projectWalletAddress;
+        promotionVideoUrl = project.promotionalVideo;
+      }
+    });
+
+    return [highestRewardProject, promotionVideoUrl,highestRewardPerUser];
+  }, []);
+
+  const { resData: allWeb3Projects, resError: error, resLoading: isLoading } = useReadFromBasePayContract({ funcName: "getWeb3Project", paraArr: [] });
 
   useEffect(() => {
-    const maxBoxPrice = Math.max(...boxes.map(box => box.price))
-    setOriginalPrice(Math.floor(Math.random() * (100 - maxBoxPrice)) + maxBoxPrice + 1)
-   
-  }, [])
+    if (allWeb3Projects) {
+      setAllProjects(allWeb3Projects);
+      console.log("all projects are ", allWeb3Projects);
+      if (allWeb3Projects.length > 0) {
+        const web3projectaddress = getHighestRewardPerUserProject(allWeb3Projects);
+        setPaymentSponsorAddress(web3projectaddress[0]);
+        setPromotionalVideoUrl(web3projectaddress[1]);
+        setDiscountAmount(Number(String(web3projectaddress[2])));
+        //console.log("Highest reward project address:", web3projectaddress);
+      }
+    }
+  }, [allWeb3Projects, getHighestRewardPerUserProject]);
+
+  useEffect(() => {
+    const maxBoxPrice = Math.max(...boxes.map(box => box.price));
+    setOriginalPrice(Math.floor(Math.random() * (100 - maxBoxPrice)) + maxBoxPrice + 1);
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -37,7 +70,7 @@ export default function Component() {
         staggerChildren: 0.1
       }
     }
-  }
+  };
 
   const boxVariants = {
     hidden: { y: 20, opacity: 0 },
@@ -57,13 +90,15 @@ export default function Component() {
         stiffness: 300,
       },
     }
-  }
+  };
 
+  const handleBoxClick = useCallback((link) => {
+    router.push(link);
+  }, [router]);
 
-  const handleBoxClick = (link) => {
-    router.push(link)
-  }
-  const { paymentAmount, setPaymentAmount } = usePaymentAmount();
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
   return (
     <div className='bg-gray-900'>
       <Navbar />
@@ -103,5 +138,5 @@ export default function Component() {
         </div>
       </div>
     </div>
-  )
+  );
 }

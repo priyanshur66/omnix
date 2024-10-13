@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import Script from 'next/script'
 import { useRouter } from 'next/navigation'
-import { usePaymentAmount } from '../../../store'
+import { usePaymentAmount, usePromotionalVideoUrlState } from '../../../store'
 export default function Component() {
   const router = useRouter()
   const [originalPrice] = useState(80)
@@ -12,10 +12,18 @@ export default function Component() {
   const [isPlaying, setIsPlaying] = useState(false)
   const playerRef = useRef(null)
 
+  const { paymentAmount } = usePaymentAmount();
+  const { promotionalVideoUrl } = usePromotionalVideoUrlState()
+  console.log("promotionalVideoUrl", promotionalVideoUrl)
+  function getVideoID(url) {
+    const regex = /(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([^&]+)|youtu\.be\/([^?&]+)/;
+    const match = url.match(regex);
+    return match ? (match[1] || match[2]) : null;
+  }
+  const promotionalVideoId = getVideoID(promotionalVideoUrl)
   const videoIds = [
-    'jrd-acToTsE',
-    'ZvzKuqSDyG8',
-    'K87aFjB7Ff0'
+    promotionalVideoId
+
   ]
 
   useEffect(() => {
@@ -60,28 +68,28 @@ export default function Component() {
       setTimeout(() => {
         event.target.stopVideo()
         setIsPlaying(false)
-        
+
         router.push(`/verification`)
       }, 12000)
     } else {
       setIsPlaying(false)
     }
   }
-  const { paymentAmount, setPaymentAmount } = usePaymentAmount();
+
   return (
     <div className="bg-gray-900 min-h-screen flex flex-col items-center justify-center p-4">
       <Script src="https://www.youtube.com/iframe_api" />
-      
-      <motion.h2 
+
+      <motion.h2
         className="text-3xl font-bold text-green-400 mb-8"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        ORIGINAL PRICE: ${paymentAmount}
+        Original Amount: ${paymentAmount}
       </motion.h2>
-      
-      <motion.div 
+
+      <motion.div
         className="w-full max-w-xl aspect-video bg-gray-800 rounded-lg overflow-hidden shadow-lg"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}

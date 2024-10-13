@@ -7,7 +7,6 @@ export default function CustomerOnboarding(){
             <div className="flex flex-row mt-28 mx-20">
                 <div className="w-1/2 h-96 pl-32"><UserForm /></div>
                 <div className="w-1/2 text-center text-white text-6xl font-bold">Our Onboarding <br/> process is <br/> very Based ! <br/> <span className=""></span>
-                <span className="text-white text-lg">jhbgdsujfcgbd skbhkshcbf sdjasndjas dasjdnakj </span>
                 </div>
             </div>
         </div>

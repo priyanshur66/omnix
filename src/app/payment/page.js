@@ -3,17 +3,46 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useSearchParams, useRouter } from 'next/navigation'
+import { usePaymentAmount, usePaymentSponsorState, useDiscountAmount, useServiceProviderCode } from '../../../store';
+import { useCallback } from 'react';
+import { Avatar, Name } from '@coinbase/onchainkit/identity';
+import {
+  Transaction,
+  TransactionButton,
+  TransactionSponsor,
+  TransactionStatus,
+  TransactionStatusAction,
+  TransactionStatusLabel,
+} from '@coinbase/onchainkit/transaction';
 
+import { Wallet, ConnectWallet } from '@coinbase/onchainkit/wallet';
+import { useAccount } from 'wagmi';
+
+
+import {
+  BASE_SEPOLIA_CHAIN_ID,
+  BasedPayAddress,
+  BasedPayAbi,
+  SampleUsdtAbi,
+  SampleUsdtAddress,
+} from "@/constants/constants"
+
+import useReadFromBasePayContract from '@/hooks/useReadFromBasePayContract';
 export default function DiscountSuccessPage() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const [showPayButton, setShowPayButton] = useState(false)
   const discountedPrice = searchParams.get('price') || '40'
+  const { paymentAmount } = usePaymentAmount();
+  const { paymentSponsorAddress, setPaymentSponsorAddress } = usePaymentSponsorState();
+  const { discountAmount, setDiscountAmount } = useDiscountAmount();
+  const { serviceProviderCode } = useServiceProviderCode();
+  const { address } = useAccount()
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowPayButton(true)
-    }, 3000) 
+    }, 3000)
 
     return () => clearTimeout(timer)
   }, [])
@@ -22,22 +51,47 @@ export default function DiscountSuccessPage() {
     router.push('/paymentsuccess')
   }
 
+  const handleOnStatus = useCallback((status) => {
+    console.log("LifecycleStatus", status);
+  }, []);
+  const sellerAddress = useReadFromBasePayContract({ funcName: "codeToServiceProviderWallet", paraArr: [serviceProviderCode] });
+  console.log("sellerAddress", sellerAddress);
+
+  const contracts = [
+    {
+      address: BasedPayAddress,
+      abi: BasedPayAbi,
+      functionName: "payToProvider",
+      args: [
+        sellerAddress, address, paymentSponsorAddress, (paymentAmount - (discountAmount * 0.8))
+      ],
+    },
+  ]
+
+  const handleError = (err) => {
+    console.error("Transaction error:", err);
+  };
+
+  const handleSuccess = (response) => {
+    console.log("Transaction successful", response);
+  };
+
   return (
     <div className="bg-gray-900 min-h-screen flex flex-col items-center justify-center">
-      <div className="w-full max-w-2xl px-4"> 
-        <motion.h1 
+      <div className="w-full max-w-2xl px-4">
+        <motion.h1
           className="text-5xl font-bold text-green-400 text-center mb-8"
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ 
+          transition={{
             duration: 0.8,
             ease: "easeOut"
           }}
         >
-          UPDATED PRICE: ${discountedPrice}
+          UPDATED PRICE: ${paymentAmount - (discountAmount * 0.8)}
         </motion.h1>
-        
-        <motion.div 
+
+        <motion.div
           className="bg-gray-800 rounded-2xl p-8 shadow-lg relative overflow-hidden"
           initial={{ height: 0 }}
           animate={{ height: 'auto' }}
@@ -49,26 +103,26 @@ export default function DiscountSuccessPage() {
             animate={{ scaleX: 1 }}
             transition={{ duration: 1.5, delay: 1.3 }}
           />
-          
-          <motion.p 
+
+          <motion.p
             className="text-2xl text-white text-center mb-6"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 1.5 }}
           >
-            Hey you got 
-            <motion.span 
+            Hey you got
+            <motion.span
               className="text-green-400 font-bold mx-2"
               initial={{ scale: 1 }}
               animate={{ scale: [1, 1.2, 1] }}
               transition={{ duration: 0.5, delay: 2 }}
             >
-              ${discountedPrice}
-            </motion.span> 
-            discount,
+              ${discountAmount * 0.8}
+            </motion.span>
+            off,
           </motion.p>
-          
-          <motion.p 
+
+          <motion.p
             className="text-2xl text-white text-center mb-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -76,23 +130,21 @@ export default function DiscountSuccessPage() {
           >
             hurraay now lets pay the amount below
           </motion.p>
-          
+
           {showPayButton && (
-            <motion.button
-              className="w-full py-4 bg-green-500 text-white text-2xl rounded-xl hover:bg-green-600 transition-colors relative overflow-hidden group"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              onClick={handlePayment}
+            <Transaction
+              contracts={contracts}
+              className="w-[450px]"
+              chainId={BASE_SEPOLIA_CHAIN_ID}
+              onError={handleError}
+              onSuccess={handleSuccess}
             >
-              <motion.div
-                className="absolute inset-0 bg-green-400 opacity-0 group-hover:opacity-20"
-                initial={{ x: '-100%' }}
-                whileHover={{ x: '100%' }}
-                transition={{ duration: 0.5 }}
-              />
-              pay
-            </motion.button>
+              <TransactionButton className="mt-0 mr-auto ml-auto w-[450px] max-w-full text-[white]" />
+              <TransactionStatus>
+                <TransactionStatusLabel />
+                <TransactionStatusAction />
+              </TransactionStatus>
+            </Transaction>
           )}
         </motion.div>
       </div>
