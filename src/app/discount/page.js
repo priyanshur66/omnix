@@ -20,7 +20,7 @@ export default function Component() {
     { title: 'Signup for platform x', price: 50, link: '/platform-x' },
     { title: 'Try application y', price: 30, link: '/application-y' },
   ]
-  const all = useReadFromBasePayContract({funcName:"allServiceProviders", paraArr:[]})
+  const all = useReadFromBasePayContract({funcName:"allWeb3Project", paraArr:[]})
   console.log("response is ",all)
 
   useEffect(() => {

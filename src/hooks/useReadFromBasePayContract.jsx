@@ -1,9 +1,9 @@
 "use client";
-import { useState, useEffect } from "react";
+
 import { useAccount, useReadContract } from "wagmi";
 import { BasedPayAbi, BasedPayAddress } from "@/constants/constants";
 
-export default async function useReadFromBasePayContract({
+export default  function useReadFromBasePayContract({
   funcName,
   paraArr,
 }) {
