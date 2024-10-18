@@ -10,7 +10,7 @@ export default function Landing() {
   
         
         <div className="container mx-auto px-6 py-20 relative">
-          <div className="max-w-3xl ml-20">
+          <div className="max-w-3xl ml-16">
             <h1 className="text-6xl font-bold mb-6">
               Future of WEB3 Marketing with BasedPay on Base.
             </h1>
@@ -22,9 +22,9 @@ export default function Landing() {
             </button>
           </div>
   
-          <div className="flex justify-between mt-20 border-t border-gray-700 mx-24 pt-8">
+          <div className="flex justify-between mt-20 border-t border-gray-700 mx-20 pt-8">
             <div>
-              <div className="text-gray-400 text-xl">bsdke</div>
+              <div className="text-gray-400 text-xl">Marketing</div>
              
             </div>
             <div>

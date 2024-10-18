@@ -1,14 +1,9 @@
 export default function Component() {
     return (
-      <div className="bg-gray-900 text-white py-20 mt-10 relative overflow-hidden">
-        {/* Background Grid */}
-        
-        
+      <div className="bg-gray-900 text-white py-20 mt-10 relative overflow-hidden"> 
         <div className="container mx-auto px-4  relative z-10">
           <h2 className="text-5xl font-bold -mt-10 text-center mb-16">gain energy</h2>
-          
           <div className="flex flex-col items-center justify-center space-y-12 md:flex-row md:space-y-0 md:space-x-8">
-            {/* Boost Your Yield */}
             <div className="flex flex-col items-center text-center max-w-xs">
               <div className="w-20 h-20 bg-gray-800 rounded-full flex items-center justify-center mb-4 relative">
                 <div className="absolute inset-0 bg-blue-500 rounded-full opacity-20 blur-md"></div>
@@ -19,8 +14,6 @@ export default function Component() {
               <h3 className="text-xl font-semibold mb-2">Boost Your Earnings</h3>
               <p className="text-gray-400">Etiam ac ante nulla. nunc tempor.</p>
             </div>
-            
-            {/* Maximize Your Earnings */}
             <div className="flex flex-col items-center text-center max-w-xs">
               <div className="w-20 h-20 bg-gray-800 rounded-full flex items-center justify-center mb-4 relative">
                 <div className="absolute inset-0 bg-blue-500 rounded-full opacity-20 blur-md"></div>
@@ -32,7 +25,6 @@ export default function Component() {
               <p className="text-gray-400">Etiam ac ante nulla. nunc tempor.</p>
             </div>
             
-            {/* Eido Points */}
             <div className="flex flex-col items-center text-center max-w-xs">
               <div className="w-20 h-20 bg-gray-800 rounded-full flex items-center justify-center mb-4 relative">
                 <div className="absolute inset-0 bg-blue-500 rounded-full opacity-20 blur-md"></div>
@@ -46,7 +38,6 @@ export default function Component() {
             </div>
           </div>
           
-          {/* Connecting Lines */}
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-3xl">
            
           </div>

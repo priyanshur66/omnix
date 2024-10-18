@@ -5,7 +5,7 @@ export default function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {/* Logo and Description */}
             <div className="col-span-1 md:col-span-2">
-              <h2 className="text-2xl font-bold mb-4">EIDO Finance</h2>
+              <h2 className="text-2xl font-bold mb-4">IND-BasedPay</h2>
               <p className="text-gray-400 mb-4">
               Etiam ac ante nulla. nunc tempor.Etiam ac ante nulla. nunc tempor.Etiam ac ante nulla. nunc tempor.Etiam ac ante nulla. nunc tempor.Etiam ac ante nulla. nunc tempor.
               </p>

@@ -1,6 +1,5 @@
 "use client";
 
-import Navbar from "@/components/Navbar";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useCallback } from "react";
@@ -34,6 +33,7 @@ import {
   useServiceProviderCode,
   useCustomer,
 } from "../../../store";
+import Navbar from "@/components/Navbar";
 export default function Use() {
   const [qrCode, setQrCode] = useState("");
   const [code, setCode] = useState("");
@@ -128,13 +128,14 @@ export default function Use() {
 
   return (
     <div className="bg-gray-900">
+      <Navbar />
       <div className="bg-gray-900 min-h-screen flex items-center justify-center p-4">
-        <div className="w-full -mt-12 max-w-md">
-          <h2 className="text-5xl font-bold text-white mb-6 text-center">
-            Hey {name} Your Balance is {usdtBalance} USD
+        <div className="w-full -mt-12 max-w-xl">
+          <h2 className="text-2xl font-bold text-white mb-6 text-center">
+            Hey <span className=" text-indigo-400  rounded">{name} </span>Your Balance is <span className="text-green-500">{usdtBalance}</span> USD
           </h2>
 
-          <h2 className="text-5xl font-bold text-white mb-6 text-center">
+          <h2 className="text-5xl font-bold font-sans text-white mb-6 text-center">
             Scan To Pay
           </h2>
 

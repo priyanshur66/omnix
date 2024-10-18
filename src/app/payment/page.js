@@ -6,6 +6,7 @@ import { useSearchParams, useRouter } from 'next/navigation'
 import { usePaymentAmount, usePaymentSponsorState, useDiscountAmount, useServiceProviderCode } from '../../../store';
 import { useCallback } from "react";
 import { Avatar, Name } from "@coinbase/onchainkit/identity";
+import Navbar from '@/components/Navbar';
 import {
   Transaction,
   TransactionButton,
@@ -79,8 +80,11 @@ export default function DiscountSuccessPage() {
   };
 
   return (
-    <div className="bg-gray-900 min-h-screen flex flex-col items-center justify-center">
-      <div className="w-full max-w-2xl px-4">
+    <>
+    <Navbar />
+    <div className="bg-gray-900 min-h-screen w-full flex flex-col items-center justify-center">
+      
+      <div className="w-full max-w-2xl -mt-20 px-4">
         <motion.h1
           className="text-5xl font-bold text-green-400 text-center mb-8"
           initial={{ opacity: 0, scale: 0.5 }}
@@ -141,7 +145,7 @@ export default function DiscountSuccessPage() {
               onError={handleError}
               onSuccess={handleSuccess}
             >
-              <TransactionButton className="mt-0 mr-auto ml-auto w-[450px] max-w-full text-[white]" />
+              <TransactionButton text='Pay Amount' className="mt-0 mr-auto ml-auto w-[450px] max-w-full text-[white]" />
               <TransactionStatus>
                 <TransactionStatusLabel />
                 <TransactionStatusAction />
@@ -151,5 +155,6 @@ export default function DiscountSuccessPage() {
         </motion.div>
       </div>
     </div>
+    </>
   )
 }

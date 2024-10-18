@@ -249,7 +249,7 @@ export default function Component() {
           onError={handleError}
           onSuccess={handleSuccess}
         >
-          <TransactionButton className="mt-0 mr-auto ml-auto w-[450px] max-w-full text-[white]" />
+          <TransactionButton text="Extend Services" className="mt-0 mr-auto ml-auto w-[450px] max-w-full text-[white]" />
           <TransactionStatus>
           <TransactionToastLabel/> 
             <TransactionStatusLabel  />

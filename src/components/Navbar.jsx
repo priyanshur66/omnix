@@ -57,8 +57,8 @@ export default function Navbar() {
   }, [userType]);
 
   return (
-    <nav className="flex justify-between items-center bg-gray-800 rounded-b-3xl px-4 sm:px-10 lg:mx-20 pt-4 pb-4 sm:pt-6 sm:pb-6">
-      <Link href="\landing">
+    <nav className="flex justify-between items-center bg-gray-800  px-4 sm:px-10 pt-4 pb-4 sm:pt-6 sm:pb-6">
+      <Link href="\">
         <div className="text-xl sm:text-2xl lg:text-3xl font-bold font-mono text-white">
           BasedPay
         </div>

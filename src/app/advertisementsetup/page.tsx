@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import { Router } from "lucide-react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 import { useCallback } from "react";
 import { Avatar, Name } from "@coinbase/onchainkit/identity";
@@ -238,7 +238,7 @@ export default function Advertisement() {
               onError={handleError}
               onSuccess={handleSuccess}
             >
-              <TransactionButton className="mt-0 mr-auto ml-auto w-[450px] max-w-full text-[white]" />
+              <TransactionButton text="Lock in Tokens" className="mt-0 text-3xl mr-auto ml-auto w-[450px] max-w-full text-[white]" />
               <TransactionStatus>
                 <TransactionStatusLabel />
                 <TransactionStatusAction />
