@@ -32,10 +32,10 @@ export default function Advertisement() {
   const router = useRouter();
   const { address } = useAccount();
   const [formData, setFormData] = useState({
-    projectName: "d",
+    projectName: "",
     projectWalletAddress: address,
-    video: "d",
-    link: "d",
+    video: "",
+    link: "",
     totalBudget: 1000,
     rewardPerUser: 2,
     duration: 12,
@@ -72,7 +72,22 @@ export default function Advertisement() {
       functionName: "approve",
       args: [BasedPayAddress, 100000000000000000000000000],
     },
-    
+    {
+      address: BasedPayAddress,
+      abi: BasedPayAbi,
+      functionName: "createWeb3Project",
+      args: [
+        formData.projectName,
+        formData.projectWalletAddress,
+        formData.video,
+        formData.link,
+        formData.totalBudget,
+        formData.rewardPerUser,
+        formData.duration,
+        formData.eligibleForAirdrops,
+        formData.promotionType,
+      ],
+    },
   ] as unknown as ContractFunctionParameters[];
 
   const handleError = (err) => {
@@ -80,7 +95,9 @@ export default function Advertisement() {
   };
 
   const handleSuccess = (response) => {
+    console.log(formData)
     console.log("Transaction successful", response);
+    router.push("/advertisement-setup-success");
   };
 
   return (
@@ -96,7 +113,7 @@ export default function Advertisement() {
           <div className="grid md:grid-cols-2 gap-6">
             <div>
               <div className="mb-4">
-              <label
+                <label
                   htmlFor="title"
                   className="block text-sm font-medium text-gray-300 mb-2"
                 >
@@ -111,7 +128,6 @@ export default function Advertisement() {
                   className="w-full px-3 py-2 text-gray-300 bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Enter your project name"
                 />
-                
               </div>
 
               <div className="mb-4">
@@ -153,7 +169,7 @@ export default function Advertisement() {
 
             <div>
               <div className="mb-4">
-              <label
+                <label
                   htmlFor="video"
                   className="block text-sm font-medium text-gray-300 mb-2"
                 >
@@ -193,7 +209,7 @@ export default function Advertisement() {
                   htmlFor="duration"
                   className="block text-sm font-medium text-gray-300 mb-2"
                 >
-                  Duration
+                  Duration (Days)
                 </label>
                 <input
                   type="number"

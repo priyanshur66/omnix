@@ -2,11 +2,16 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import useReadFromBasePayContract from "@/hooks/useReadFromBasePayContract";
+import { useAccount } from "wagmi";
 import QRCode from 'qrcode.react'
 
 export default function Component() {
+  const { address } = useAccount();
   const [isModalOpen, setIsModalOpen] = useState(false)
   const totalCommission = 1234.56 // Replace with actual commission data
+  const { resData: serviceProviderData } = useReadFromBasePayContract({ funcName: "addressToServiceProvider", paraArr: [address] });
+  console.log("serviceProviderData",serviceProviderData)
 
   const toggleModal = () => setIsModalOpen(!isModalOpen)
 
@@ -14,7 +19,7 @@ export default function Component() {
     <div className="bg-gray-900 min-h-screen p-6">
       <div className="max-w-4xl mx-auto bg-gray-800 rounded-lg p-6 flex justify-between items-center">
         <div className="text-green-400 text-xl">
-          total commission earned <span className="font-bold">${totalCommission.toFixed(2)}</span>
+          total commission earned <span className="font-bold">${String(serviceProviderData?.[5])}</span>
         </div>
         <button
           onClick={toggleModal}

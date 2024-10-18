@@ -51,8 +51,10 @@ export default function Navbar() {
         router.push("/commissions-dashboard");
       } else if (userType === "customer" && route === "/") {
        router.push("/usenetwork");
-      }
-     //  console.log("User type is:", userType);
+      }else if (userType === "web3Project" && route === "/") {
+        router.push("/dashboard");
+       }
+       console.log("User type is:", userType);
     }
   }, [userType]);
 
