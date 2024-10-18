@@ -28,20 +28,22 @@ import {
   SampleUsdtAddress,
 } from "../../constants/constants";
 import type { Address, ContractFunctionParameters } from "viem";
-import { usePaymentAmount, useServiceProviderCode ,useCustomer } from "../../../store";
+import useReadFromUsdtContract from "@/hooks/useReadFromUsdtContract";
+import {
+  usePaymentAmount,
+  useServiceProviderCode,
+  useCustomer,
+} from "../../../store";
 export default function Use() {
   const [qrCode, setQrCode] = useState("");
   const [code, setCode] = useState("");
   const [amount, setAmount] = useState(0);
   const [isScanning, setIsScanning] = useState(false);
   const [isMobileConnected, setIsMobileConnected] = useState(false);
+  const [usdtBalance, setUsdtBalance] = useState(0);
   const router = useRouter();
 
   const { address } = useAccount();
-
-  const handleOnStatus = useCallback((status: LifecycleStatus) => {
-    console.log("LifecycleStatus", status);
-  }, []);
 
   const contracts = [
     {
@@ -59,6 +61,17 @@ export default function Use() {
   const handleSuccess = (response: TransactionResponse) => {
     console.log("Transaction successful", response);
   };
+
+  const { resData: updatedUsdtBalance } = useReadFromUsdtContract({
+    funcName: "balanceOf",
+    paraArr: [address],
+  });
+  console.log(updatedUsdtBalance);
+
+  useEffect(() => {
+    setUsdtBalance(Number(String(updatedUsdtBalance).slice(0, -18)));
+    console.log("updatedUsdtBalance", updatedUsdtBalance);
+  }, [updatedUsdtBalance]);
 
   useEffect(() => {
     // Check if a mobile device is connected via USB
@@ -110,18 +123,19 @@ export default function Use() {
   const { paymentAmount, setPaymentAmount } = usePaymentAmount();
   const { serviceProviderCode, setServiceProviderCode } =
     useServiceProviderCode();
-  const {customerWalletAddress,name} = useCustomer()
-  console.log("customer name",name)
+  const { customerWalletAddress, name } = useCustomer();
+  console.log("customer name", name);
 
   return (
     <div className="bg-gray-900">
       <div className="bg-gray-900 min-h-screen flex items-center justify-center p-4">
         <div className="w-full -mt-12 max-w-md">
-        <h2 className="text-5xl font-bold text-white mb-6 text-center">
-            Hey {name}
-          </h2>
           <h2 className="text-5xl font-bold text-white mb-6 text-center">
-            QR Code Scanner
+            Hey {name} Your Balance is {usdtBalance} USD
+          </h2>
+
+          <h2 className="text-5xl font-bold text-white mb-6 text-center">
+            Scan To Pay
           </h2>
 
           <div className="bg-gray-800 p-6 rounded-lg shadow-lg mb-6">

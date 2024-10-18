@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { usePaymentAmount, usePaymentSponsorState, useDiscountAmount, useServiceProviderCode } from '../../../store';
-import { useCallback } from 'react';
-import { Avatar, Name } from '@coinbase/onchainkit/identity';
+import { useCallback } from "react";
+import { Avatar, Name } from "@coinbase/onchainkit/identity";
 import {
   Transaction,
   TransactionButton,
@@ -13,10 +13,10 @@ import {
   TransactionStatus,
   TransactionStatusAction,
   TransactionStatusLabel,
-} from '@coinbase/onchainkit/transaction';
+} from "@coinbase/onchainkit/transaction";
 
-import { Wallet, ConnectWallet } from '@coinbase/onchainkit/wallet';
-import { useAccount } from 'wagmi';
+import { Wallet, ConnectWallet } from "@coinbase/onchainkit/wallet";
+import { useAccount } from "wagmi";
 
 
 import {
@@ -38,6 +38,7 @@ export default function DiscountSuccessPage() {
   const { discountAmount, setDiscountAmount } = useDiscountAmount();
   const { serviceProviderCode } = useServiceProviderCode();
   const { address } = useAccount()
+  
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -54,8 +55,8 @@ export default function DiscountSuccessPage() {
   const handleOnStatus = useCallback((status) => {
     console.log("LifecycleStatus", status);
   }, []);
-  const sellerAddress = useReadFromBasePayContract({ funcName: "codeToServiceProviderWallet", paraArr: [serviceProviderCode] });
-  console.log("sellerAddress", sellerAddress);
+  const {resData:sellerAddress} = useReadFromBasePayContract({ funcName: "codeToServiceProviderWallet", paraArr: [serviceProviderCode] });
+  console.log("sellerAddress", sellerAddress,address,paymentSponsorAddress,(String(paymentAmount - (discountAmount * 0.8)))+"1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000");
 
   const contracts = [
     {
@@ -63,7 +64,7 @@ export default function DiscountSuccessPage() {
       abi: BasedPayAbi,
       functionName: "payToProvider",
       args: [
-        sellerAddress, address, paymentSponsorAddress, (paymentAmount - (discountAmount * 0.8))
+        sellerAddress, address, paymentSponsorAddress, paymentAmount - ((discountAmount * 0.8))
       ],
     },
   ]
@@ -74,6 +75,7 @@ export default function DiscountSuccessPage() {
 
   const handleSuccess = (response) => {
     console.log("Transaction successful", response);
+    router.push('/paymentsuccess')
   };
 
   return (

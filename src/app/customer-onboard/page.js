@@ -1,5 +1,6 @@
 import Navbar from "../../components/Navbar"
 import UserForm from "../../components/UserOnboardForm"
+
 export default function CustomerOnboarding(){
     return(
         <div className="bg-gray-900 min-h-screen">

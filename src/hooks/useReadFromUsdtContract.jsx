@@ -8,7 +8,7 @@ export default  function useReadFromUsdtContract({
   paraArr,
 }) {
   console.log(funcName)
-  console.log(paraArr)
+  console.log("para",paraArr)
   const {
     data: resData,
     isError: resError,

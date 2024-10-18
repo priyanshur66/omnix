@@ -15,36 +15,32 @@ import {
   TransactionStatusAction,
   TransactionStatusLabel,
 } from "@coinbase/onchainkit/transaction";
-import type { LifecycleStatus } from "@coinbase/onchainkit/transaction";
+
 import { Wallet, ConnectWallet } from "@coinbase/onchainkit/wallet";
 import { useAccount } from "wagmi";
-import type {
-  TransactionError,
-  TransactionResponse,
-} from "@coinbase/onchainkit/transaction";
 
 import {
   BASE_SEPOLIA_CHAIN_ID,
-  BasedPayAbi,
   BasedPayAddress,
+  BasedPayAbi,
   SampleUsdtAbi,
   SampleUsdtAddress,
-} from "../../constants/constants";
+} from "@/constants/constants";
 import type { Address, ContractFunctionParameters } from "viem";
 
 export default function Advertisement() {
   const router = useRouter();
   const { address } = useAccount();
   const [formData, setFormData] = useState({
-    projectName: "",
+    projectName: "d",
     projectWalletAddress: address,
-    video: "",
-    link: "",
-    totalBudget: "",
-    rewardPerUser: "",
-    duration: "",
+    video: "d",
+    link: "d",
+    totalBudget: 1000,
+    rewardPerUser: 2,
+    duration: 12,
     eligibleForAirdrops: false,
-    promotionType: "",
+    promotionType: "video",
   });
 
   const handleChange = (e) => {
@@ -65,34 +61,25 @@ export default function Advertisement() {
 
   // contracts interaction
 
-  const handleOnStatus = useCallback((status: LifecycleStatus) => {
+  const handleOnStatus = useCallback((status) => {
     console.log("LifecycleStatus", status);
   }, []);
 
   const contracts = [
     {
-      address: BasedPayAddress,
-      abi: BasedPayAbi,
-      functionName: "createWeb3Project",
-      args: [
-        formData.projectName,
-        formData.projectWalletAddress,
-        formData.video,
-        formData.link,
-        formData.totalBudget,
-        formData.rewardPerUser,
-        formData.duration,
-        formData.eligibleForAirdrops,
-        formData.promotionType,
-      ],
+      address: SampleUsdtAddress,
+      abi: SampleUsdtAbi,
+      functionName: "approve",
+      args: [BasedPayAddress, 100000000000000000000000000],
     },
+    
   ] as unknown as ContractFunctionParameters[];
 
-  const handleError = (err: TransactionError) => {
+  const handleError = (err) => {
     console.error("Transaction error:", err);
   };
 
-  const handleSuccess = (response: TransactionResponse) => {
+  const handleSuccess = (response) => {
     console.log("Transaction successful", response);
   };
 
@@ -113,16 +100,16 @@ export default function Advertisement() {
                   htmlFor="title"
                   className="block text-sm font-medium text-gray-300 mb-2"
                 >
-                  Title
+                  Project Name
                 </label>
                 <input
                   type="text"
-                  id="title"
-                  name="title"
+                  id="projectName"
+                  name="projectName"
                   value={formData.projectName}
                   onChange={handleChange}
                   className="w-full px-3 py-2 text-gray-300 bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter title"
+                  placeholder="Enter your project name"
                 />
                 
               </div>
@@ -209,7 +196,7 @@ export default function Advertisement() {
                   Duration
                 </label>
                 <input
-                  type="text"
+                  type="number"
                   id="duration"
                   name="duration"
                   value={formData.duration}

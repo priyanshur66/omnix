@@ -30,6 +30,7 @@ import {
 export default function UserForm() {
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
+  const [usdAllowance, setUsdAllowance] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const [showRedirectMessage, setShowRedirectMessage] = useState(false);
@@ -44,6 +45,12 @@ export default function UserForm() {
 
   const contracts = [
     {
+      address: SampleUsdtAddress,
+      abi: SampleUsdtAbi,
+      functionName: "approve",
+      args: [BasedPayAddress, 10000000000000000000000000],
+    },
+    {
       address: BasedPayAddress,
       abi: BasedPayAbi,
       functionName: "createCustomer",
@@ -51,12 +58,15 @@ export default function UserForm() {
     },
   ];
 
+  
+
   const handleError = (err) => {
     console.error("Transaction error:", err);
   };
+ 
   const handleSuccess = (response) => {
     console.log("Transaction successful", response);
-    router.push("/usenetwork");
+   router.push("/usenetwork");
   };
 
   useEffect(() => {
@@ -75,7 +85,7 @@ export default function UserForm() {
     setTimeout(() => {
       setShowConfetti(false);
 
-      router.push("/usenetwork");
+     // router.push("/usenetwork");
     }, 3000);
   };
 
@@ -127,22 +137,52 @@ export default function UserForm() {
             initial={{ x: 50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.9, duration: 0.5 }}
-          >
-            
-          </motion.div>
-          <Transaction
-            contracts={contracts}
-            className="w-[450px]"
-            chainId={BASE_SEPOLIA_CHAIN_ID}
-            onError={handleError}
-            onSuccess={handleSuccess}
-          >
-            <TransactionButton className="mt-0 mr-auto ml-auto w-[450px] max-w-full text-[white]" />
-            <TransactionStatus>
-              <TransactionStatusLabel />
-              <TransactionStatusAction />
-            </TransactionStatus>
-          </Transaction>
+          ></motion.div>
+
+          {usdAllowance ? (
+            <>
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-white"
+              >
+                Approve as USD Spender
+              </label>
+              <Transaction
+                contracts={contractUsd}
+                className="w-[450px]"
+                chainId={BASE_SEPOLIA_CHAIN_ID}
+                onError={handleError}
+                onSuccess={handleUsdSuccess}
+              >
+                <TransactionButton className="mt-0 mr-auto ml-auto w-[450px] max-w-full text-[white]" />
+                <TransactionStatus>
+                  <TransactionStatusLabel />
+                  <TransactionStatusAction />
+                </TransactionStatus>
+              </Transaction>
+            </>
+          ) : (
+            <>
+            <label
+                htmlFor="name"
+                className="block text-sm font-medium text-white"
+              >
+                Register on BasedPay
+              </label>
+            <Transaction
+              contracts={contracts}
+              className="w-[450px]"
+              chainId={BASE_SEPOLIA_CHAIN_ID}
+              onError={handleError}
+              onSuccess={handleSuccess}
+            >
+              <TransactionButton className="mt-0 mr-auto ml-auto w-[450px] max-w-full text-[white]" />
+              <TransactionStatus>
+                <TransactionStatusLabel />
+                <TransactionStatusAction />
+              </TransactionStatus>
+            </Transaction></>
+          )}
         </form>
 
         {showRedirectMessage && (

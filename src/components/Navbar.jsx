@@ -24,6 +24,7 @@ import { useRouter } from "next/navigation";
 import { useAccount } from "wagmi";
 import { usePathname } from "next/navigation";
 import useUpdateCurrentUserData from "@/hooks/useUpdateCurrentUserData";
+import { base } from "viem/chains";
 
 export default function Navbar() {
   const router = useRouter();
@@ -49,7 +50,7 @@ export default function Navbar() {
       } else if (userType === "serviceProvider" && route === "/") {
         router.push("/commissions-dashboard");
       } else if (userType === "customer" && route === "/") {
-        router.push("/usenetwork");
+       router.push("/usenetwork");
       }
      //  console.log("User type is:", userType);
     }
@@ -67,12 +68,12 @@ export default function Navbar() {
         <Wallet>
           <ConnectWallet>
             <Avatar className="h-6 w-6" />
-            <Name />
+            <Name address={address} chain={base} /> 
           </ConnectWallet>
           <WalletDropdown>
             <Identity className="px-4 pt-3 pb-2" hasCopyAddressOnClick>
               <Avatar />
-              <Name />
+              <Name address={address} chain={base} /> 
               <Address />
               <EthBalance />
             </Identity>
