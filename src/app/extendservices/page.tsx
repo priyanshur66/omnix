@@ -2,7 +2,7 @@
 
 import Navbar from "@/components/Navbar";
 import { useState } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 
 import { useCallback } from "react";
@@ -40,11 +40,11 @@ export default function Component() {
   const router = useRouter();
   const { address } = useAccount();
   const [formData, setFormData] = useState({
-    serviceProviderName: "f",
-    serviceType: "f",
+    serviceProviderName: "",
+    serviceType: "",
     providerWalletAddress: address,
-    locationOfService: "f",
-    providerCode: "f",
+    locationOfService: "",
+    providerCode: "",
   });
 
   const handleChange = (e) => {
@@ -125,7 +125,7 @@ export default function Component() {
               <input
                 type="text"
                 id="location"
-                name="location"
+                name="locationOfService"
                 value={formData.locationOfService}
                 onChange={handleChange}
                 className="w-full px-3 py-2 text-gray-300 bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -159,13 +159,13 @@ export default function Component() {
                 Provider Name
               </label>
               <input
-                type="number"
+                type="text"
                 id="providerName" //ye rate per hour tha pehle
-                name="providerName"
+                name="serviceProviderName"
                 value={formData.serviceProviderName}
                 onChange={handleChange}
                 className="w-full px-3 py-2 text-gray-300 bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter rate per hour"
+                placeholder="Enter provider name"
               />
             </div>
 
@@ -177,9 +177,9 @@ export default function Component() {
                 Code
               </label>
               <input
-                type="text"
+                type="number"
                 id="code"
-                name="code"
+                name="providerCode"
                 value={formData.providerCode}
                 onChange={handleChange}
                 className="w-full px-3 py-2 text-gray-300 bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -195,9 +195,9 @@ export default function Component() {
                 Your Commission
               </label>
               <input
-                type="number"
+                type="text"
                 id="commission"
-                name="commission"
+                name="providerWalletAddress"
                 value={formData.providerWalletAddress}
                 onChange={handleChange}
                 className="w-full px-3 py-2 text-gray-300 bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
