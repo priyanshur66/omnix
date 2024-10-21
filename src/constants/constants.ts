@@ -1,5 +1,264 @@
 export const BASE_SEPOLIA_CHAIN_ID = 84532;
-export const BasedPayAbi = [
+export const OmniXAbi = [
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_userAddress",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "_caloriesBurnt",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_sleepHours",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_steps",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_runningDistance",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_walkingDistance",
+        type: "uint256",
+      },
+    ],
+    name: "checkHealthGoalsAndReward",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "_clubName",
+        type: "string",
+      },
+      {
+        internalType: "address",
+        name: "_clubWalletAddress",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "_joiningFee",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_memberMinCaloriesBurnt",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_memberMinSleepHours",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_memberMinSteps",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_memberMinRunningDistance",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_memberMinWalkingDistance",
+        type: "uint256",
+      },
+    ],
+    name: "createNewClub",
+    outputs: [
+      {
+        components: [
+          {
+            internalType: "uint256",
+            name: "clubId",
+            type: "uint256",
+          },
+          {
+            internalType: "string",
+            name: "clubName",
+            type: "string",
+          },
+          {
+            internalType: "address",
+            name: "clubWalletAddress",
+            type: "address",
+          },
+          {
+            internalType: "uint256",
+            name: "joiningFee",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "memberMinCaloriesBurnt",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "memberMinSleepHours",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "memberMinSteps",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "memberMinRunningDistance",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "memberMinWalkingDistance",
+            type: "uint256",
+          },
+        ],
+        internalType: "struct OmniX.Club",
+        name: "",
+        type: "tuple",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "_userName",
+        type: "string",
+      },
+      {
+        internalType: "address",
+        name: "_userWalletAddress",
+        type: "address",
+      },
+      {
+        internalType: "string",
+        name: "_userSex",
+        type: "string",
+      },
+      {
+        internalType: "uint256",
+        name: "_userWeight",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_userAge",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_userHeight",
+        type: "uint256",
+      },
+      {
+        internalType: "bool",
+        name: "_medicalCondition",
+        type: "bool",
+      },
+      {
+        internalType: "string",
+        name: "_userLocation",
+        type: "string",
+      },
+    ],
+    name: "createNewUser",
+    outputs: [
+      {
+        components: [
+          {
+            internalType: "string",
+            name: "userName",
+            type: "string",
+          },
+          {
+            internalType: "address",
+            name: "userWalletAddress",
+            type: "address",
+          },
+          {
+            internalType: "string",
+            name: "userSex",
+            type: "string",
+          },
+          {
+            internalType: "uint256",
+            name: "userWeight",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "userAge",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "userHeight",
+            type: "uint256",
+          },
+          {
+            internalType: "bool",
+            name: "medicalCondition",
+            type: "bool",
+          },
+          {
+            internalType: "string",
+            name: "userLocation",
+            type: "string",
+          },
+          {
+            internalType: "uint256[]",
+            name: "joinedClubs",
+            type: "uint256[]",
+          },
+        ],
+        internalType: "struct OmniX.User",
+        name: "",
+        type: "tuple",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_clubId",
+        type: "uint256",
+      },
+    ],
+    name: "joinClub",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
   {
     inputs: [
       {
@@ -12,28 +271,29 @@ export const BasedPayAbi = [
     type: "constructor",
   },
   {
+    anonymous: false,
     inputs: [
       {
+        indexed: true,
         internalType: "address",
-        name: "",
+        name: "user",
         type: "address",
       },
-    ],
-    name: "addressToCustomer",
-    outputs: [
       {
-        internalType: "string",
-        name: "name",
-        type: "string",
+        indexed: true,
+        internalType: "uint256",
+        name: "clubId",
+        type: "uint256",
       },
       {
-        internalType: "address",
-        name: "customerWalletAddress",
-        type: "address",
+        indexed: false,
+        internalType: "uint256",
+        name: "joiningFee",
+        type: "uint256",
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    name: "ClubJoined",
+    type: "event",
   },
   {
     inputs: [
@@ -43,101 +303,47 @@ export const BasedPayAbi = [
         type: "address",
       },
     ],
-    name: "addressToServiceProvider",
+    name: "addressToUser",
     outputs: [
       {
         internalType: "string",
-        name: "serviceProviderName",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "serviceType",
+        name: "userName",
         type: "string",
       },
       {
         internalType: "address",
-        name: "providerWalletAddress",
+        name: "userWalletAddress",
         type: "address",
       },
       {
         internalType: "string",
-        name: "locationOfService",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "providerCode",
+        name: "userSex",
         type: "string",
       },
       {
         internalType: "uint256",
-        name: "commissionEarned",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    name: "addressToWeb3Project",
-    outputs: [
-      {
-        internalType: "string",
-        name: "projectName",
-        type: "string",
-      },
-      {
-        internalType: "address",
-        name: "projectWalletAddress",
-        type: "address",
-      },
-      {
-        internalType: "string",
-        name: "promotionalVideo",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "projectLink",
-        type: "string",
-      },
-      {
-        internalType: "uint256",
-        name: "totalBudget",
+        name: "userWeight",
         type: "uint256",
       },
       {
         internalType: "uint256",
-        name: "rewardPerUser",
+        name: "userAge",
         type: "uint256",
       },
       {
         internalType: "uint256",
-        name: "promoDuration",
+        name: "userHeight",
         type: "uint256",
       },
       {
         internalType: "bool",
-        name: "makeUsersEligibleForAirdrops",
+        name: "medicalCondition",
         type: "bool",
       },
       {
         internalType: "string",
-        name: "promoType",
+        name: "userLocation",
         type: "string",
-      },
-      {
-        internalType: "uint256",
-        name: "remainingBalance",
-        type: "uint256",
       },
     ],
     stateMutability: "view",
@@ -151,383 +357,12 @@ export const BasedPayAbi = [
         type: "uint256",
       },
     ],
-    name: "allServiceProviders",
+    name: "allClubIds",
     outputs: [
-      {
-        internalType: "string",
-        name: "serviceProviderName",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "serviceType",
-        type: "string",
-      },
-      {
-        internalType: "address",
-        name: "providerWalletAddress",
-        type: "address",
-      },
-      {
-        internalType: "string",
-        name: "locationOfService",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "providerCode",
-        type: "string",
-      },
-      {
-        internalType: "uint256",
-        name: "commissionEarned",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
       {
         internalType: "uint256",
         name: "",
         type: "uint256",
-      },
-    ],
-    name: "allWeb3Project",
-    outputs: [
-      {
-        internalType: "string",
-        name: "projectName",
-        type: "string",
-      },
-      {
-        internalType: "address",
-        name: "projectWalletAddress",
-        type: "address",
-      },
-      {
-        internalType: "string",
-        name: "promotionalVideo",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "projectLink",
-        type: "string",
-      },
-      {
-        internalType: "uint256",
-        name: "totalBudget",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "rewardPerUser",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "promoDuration",
-        type: "uint256",
-      },
-      {
-        internalType: "bool",
-        name: "makeUsersEligibleForAirdrops",
-        type: "bool",
-      },
-      {
-        internalType: "string",
-        name: "promoType",
-        type: "string",
-      },
-      {
-        internalType: "uint256",
-        name: "remainingBalance",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
-      },
-    ],
-    name: "codeToServiceProviderWallet",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "_name",
-        type: "string",
-      },
-      {
-        internalType: "address",
-        name: "_customerWalletAddress",
-        type: "address",
-      },
-    ],
-    name: "createCustomer",
-    outputs: [
-      {
-        components: [
-          {
-            internalType: "string",
-            name: "name",
-            type: "string",
-          },
-          {
-            internalType: "address",
-            name: "customerWalletAddress",
-            type: "address",
-          },
-        ],
-        internalType: "struct BasedPay.Customer",
-        name: "",
-        type: "tuple",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "_serviceProviderName",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_serviceType",
-        type: "string",
-      },
-      {
-        internalType: "address",
-        name: "_providerWalletAddress",
-        type: "address",
-      },
-      {
-        internalType: "string",
-        name: "_locationOfService",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_providerCode",
-        type: "string",
-      },
-    ],
-    name: "createServiceProvider",
-    outputs: [
-      {
-        components: [
-          {
-            internalType: "string",
-            name: "serviceProviderName",
-            type: "string",
-          },
-          {
-            internalType: "string",
-            name: "serviceType",
-            type: "string",
-          },
-          {
-            internalType: "address",
-            name: "providerWalletAddress",
-            type: "address",
-          },
-          {
-            internalType: "string",
-            name: "locationOfService",
-            type: "string",
-          },
-          {
-            internalType: "string",
-            name: "providerCode",
-            type: "string",
-          },
-          {
-            internalType: "uint256",
-            name: "commissionEarned",
-            type: "uint256",
-          },
-        ],
-        internalType: "struct BasedPay.ServiceProvider",
-        name: "",
-        type: "tuple",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "_projectName",
-        type: "string",
-      },
-      {
-        internalType: "address",
-        name: "_projectWalletAddress",
-        type: "address",
-      },
-      {
-        internalType: "string",
-        name: "_promotionalVideo",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_projectLink",
-        type: "string",
-      },
-      {
-        internalType: "uint256",
-        name: "_totalBudget",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "_rewardPerUser",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "_promoDuration",
-        type: "uint256",
-      },
-      {
-        internalType: "bool",
-        name: "_makeUsersEligibleForAirdrops",
-        type: "bool",
-      },
-      {
-        internalType: "string",
-        name: "_promoType",
-        type: "string",
-      },
-    ],
-    name: "createWeb3Project",
-    outputs: [
-      {
-        components: [
-          {
-            internalType: "string",
-            name: "projectName",
-            type: "string",
-          },
-          {
-            internalType: "address",
-            name: "projectWalletAddress",
-            type: "address",
-          },
-          {
-            internalType: "string",
-            name: "promotionalVideo",
-            type: "string",
-          },
-          {
-            internalType: "string",
-            name: "projectLink",
-            type: "string",
-          },
-          {
-            internalType: "uint256",
-            name: "totalBudget",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "rewardPerUser",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "promoDuration",
-            type: "uint256",
-          },
-          {
-            internalType: "bool",
-            name: "makeUsersEligibleForAirdrops",
-            type: "bool",
-          },
-          {
-            internalType: "string",
-            name: "promoType",
-            type: "string",
-          },
-          {
-            internalType: "uint256",
-            name: "remainingBalance",
-            type: "uint256",
-          },
-        ],
-        internalType: "struct BasedPay.Web3Project",
-        name: "",
-        type: "tuple",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "getAllServiceProviders",
-    outputs: [
-      {
-        components: [
-          {
-            internalType: "string",
-            name: "serviceProviderName",
-            type: "string",
-          },
-          {
-            internalType: "string",
-            name: "serviceType",
-            type: "string",
-          },
-          {
-            internalType: "address",
-            name: "providerWalletAddress",
-            type: "address",
-          },
-          {
-            internalType: "string",
-            name: "locationOfService",
-            type: "string",
-          },
-          {
-            internalType: "string",
-            name: "providerCode",
-            type: "string",
-          },
-          {
-            internalType: "uint256",
-            name: "commissionEarned",
-            type: "uint256",
-          },
-        ],
-        internalType: "struct BasedPay.ServiceProvider[]",
-        name: "",
-        type: "tuple[]",
       },
     ],
     stateMutability: "view",
@@ -535,62 +370,89 @@ export const BasedPayAbi = [
   },
   {
     inputs: [],
-    name: "getWeb3Project",
+    name: "clubIdTracker",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    name: "clubWalletToId",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getAllClubs",
     outputs: [
       {
         components: [
           {
+            internalType: "uint256",
+            name: "clubId",
+            type: "uint256",
+          },
+          {
             internalType: "string",
-            name: "projectName",
+            name: "clubName",
             type: "string",
           },
           {
             internalType: "address",
-            name: "projectWalletAddress",
+            name: "clubWalletAddress",
             type: "address",
           },
           {
-            internalType: "string",
-            name: "promotionalVideo",
-            type: "string",
-          },
-          {
-            internalType: "string",
-            name: "projectLink",
-            type: "string",
-          },
-          {
             internalType: "uint256",
-            name: "totalBudget",
+            name: "joiningFee",
             type: "uint256",
           },
           {
             internalType: "uint256",
-            name: "rewardPerUser",
+            name: "memberMinCaloriesBurnt",
             type: "uint256",
           },
           {
             internalType: "uint256",
-            name: "promoDuration",
+            name: "memberMinSleepHours",
             type: "uint256",
           },
           {
-            internalType: "bool",
-            name: "makeUsersEligibleForAirdrops",
-            type: "bool",
-          },
-          {
-            internalType: "string",
-            name: "promoType",
-            type: "string",
+            internalType: "uint256",
+            name: "memberMinSteps",
+            type: "uint256",
           },
           {
             internalType: "uint256",
-            name: "remainingBalance",
+            name: "memberMinRunningDistance",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "memberMinWalkingDistance",
             type: "uint256",
           },
         ],
-        internalType: "struct BasedPay.Web3Project[]",
+        internalType: "struct OmniX.Club[]",
         name: "",
         type: "tuple[]",
       },
@@ -602,34 +464,132 @@ export const BasedPayAbi = [
     inputs: [
       {
         internalType: "address",
-        name: "_serviceProviderAddress",
+        name: "_clubWalletAddress",
         type: "address",
       },
+    ],
+    name: "getClubByAddress",
+    outputs: [
       {
-        internalType: "address",
-        name: "_customerWalletAddress",
-        type: "address",
+        components: [
+          {
+            internalType: "uint256",
+            name: "clubId",
+            type: "uint256",
+          },
+          {
+            internalType: "string",
+            name: "clubName",
+            type: "string",
+          },
+          {
+            internalType: "address",
+            name: "clubWalletAddress",
+            type: "address",
+          },
+          {
+            internalType: "uint256",
+            name: "joiningFee",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "memberMinCaloriesBurnt",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "memberMinSleepHours",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "memberMinSteps",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "memberMinRunningDistance",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "memberMinWalkingDistance",
+            type: "uint256",
+          },
+        ],
+        internalType: "struct OmniX.Club",
+        name: "",
+        type: "tuple",
       },
-      {
-        internalType: "address",
-        name: "_web3ProjectAddress",
-        type: "address",
-      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
       {
         internalType: "uint256",
-        name: "_amountPaidByCustomer",
+        name: "_clubId",
         type: "uint256",
       },
     ],
-    name: "payToProvider",
+    name: "getClubById",
     outputs: [
       {
-        internalType: "bool",
+        components: [
+          {
+            internalType: "uint256",
+            name: "clubId",
+            type: "uint256",
+          },
+          {
+            internalType: "string",
+            name: "clubName",
+            type: "string",
+          },
+          {
+            internalType: "address",
+            name: "clubWalletAddress",
+            type: "address",
+          },
+          {
+            internalType: "uint256",
+            name: "joiningFee",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "memberMinCaloriesBurnt",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "memberMinSleepHours",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "memberMinSteps",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "memberMinRunningDistance",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "memberMinWalkingDistance",
+            type: "uint256",
+          },
+        ],
+        internalType: "struct OmniX.Club",
         name: "",
-        type: "bool",
+        type: "tuple",
       },
     ],
-    stateMutability: "nonpayable",
+    stateMutability: "view",
     type: "function",
   },
   {
@@ -640,12 +600,98 @@ export const BasedPayAbi = [
         type: "address",
       },
     ],
-    name: "returnUserType",
+    name: "getUserHealthGoals",
     outputs: [
       {
-        internalType: "string",
+        components: [
+          {
+            internalType: "uint256",
+            name: "minCaloriesBurnt",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "minSleepHours",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "minSteps",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "minRunningDistance",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "minWalkingDistance",
+            type: "uint256",
+          },
+        ],
+        internalType: "struct OmniX.HealthGoals",
         name: "",
+        type: "tuple",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    name: "idToClub",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "clubId",
+        type: "uint256",
+      },
+      {
+        internalType: "string",
+        name: "clubName",
         type: "string",
+      },
+      {
+        internalType: "address",
+        name: "clubWalletAddress",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "joiningFee",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "memberMinCaloriesBurnt",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "memberMinSleepHours",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "memberMinSteps",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "memberMinRunningDistance",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "memberMinWalkingDistance",
+        type: "uint256",
       },
     ],
     stateMutability: "view",
@@ -664,28 +710,33 @@ export const BasedPayAbi = [
     stateMutability: "view",
     type: "function",
   },
+];
+export const OmniXAddress = "0x87B981E348B169728c1130d03A95E010A7F3D6e8";
+export const SampleUsdtAbi = [
   {
     inputs: [
       {
         internalType: "address",
-        name: "",
+        name: "spender",
         type: "address",
       },
-    ],
-    name: "web3ProjectAddToRewardPerUser",
-    outputs: [
       {
         internalType: "uint256",
-        name: "",
+        name: "value",
         type: "uint256",
       },
     ],
-    stateMutability: "view",
+    name: "approve",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
     type: "function",
   },
-];
-export const BasedPayAddress = "0x43C9E3bF8aB6d49eDb49d545fDDf12d7b53dE5aF";
-export const SampleUsdtAbi = [
   {
     inputs: [],
     stateMutability: "nonpayable",
@@ -803,6 +854,43 @@ export const SampleUsdtAbi = [
     type: "event",
   },
   {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_address",
+        type: "address",
+      },
+    ],
+    name: "mintForDemo",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "to",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "value",
+        type: "uint256",
+      },
+    ],
+    name: "transfer",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
     anonymous: false,
     inputs: [
       {
@@ -831,6 +919,35 @@ export const SampleUsdtAbi = [
     inputs: [
       {
         internalType: "address",
+        name: "from",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "to",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "value",
+        type: "uint256",
+      },
+    ],
+    name: "transferFrom",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
         name: "owner",
         type: "address",
       },
@@ -849,30 +966,6 @@ export const SampleUsdtAbi = [
       },
     ],
     stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "spender",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "value",
-        type: "uint256",
-      },
-    ],
-    name: "approve",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -905,19 +998,6 @@ export const SampleUsdtAbi = [
       },
     ],
     stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_address",
-        type: "address",
-      },
-    ],
-    name: "mintForDemo",
-    outputs: [],
-    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -959,58 +1039,5 @@ export const SampleUsdtAbi = [
     stateMutability: "view",
     type: "function",
   },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "to",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "value",
-        type: "uint256",
-      },
-    ],
-    name: "transfer",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "from",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "to",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "value",
-        type: "uint256",
-      },
-    ],
-    name: "transferFrom",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
 ];
-export const SampleUsdtAddress = "0xcf43112364e9bEdCa088c8cF58bF210D7684493F";
+export const SampleUsdtAddress = "0x4D91956AB600b85b28d1Aa391BD2c9bA626EFefF";
