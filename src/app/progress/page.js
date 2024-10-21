@@ -78,7 +78,7 @@ export default function Progress() {
                             join some clubs</div>}
                     </div>
                     <div className="w-full lg:w-1/2">
-                        <h1 className="text-white text-3xl md:text-4xl lg:text-5xl font-bold text-center mt-10 mb-6">Join club</h1> <button onClick={() => {
+                        <h1 className="text-white text-3xl md:text-4xl lg:text-5xl font-bold text-center mt-10 mb-6">Join club</h1> <button className='text-white border px-10 py-1 bg-black hover:bg-white hover:text-black rounded-full ml-64 mb-8' onClick={() => {
                             router.push("/club-creation")
                         }}>create new club</button>
                         {allClubsData?.map((club, index) => (

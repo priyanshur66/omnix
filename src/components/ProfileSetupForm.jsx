@@ -28,7 +28,7 @@ import {
 export default function ProfileHealthForm() {
   const router = useRouter();
   const [formData, setFormData] = useState({
-    name: "df",
+    name: "",
     age: 0,
     sex: "",
     medicalCondition: false,
@@ -329,7 +329,7 @@ export default function ProfileHealthForm() {
           onError={handleError}
           onSuccess={handleSuccess}
         >
-          <TransactionButton className="mt-0 mr-auto ml-auto w-[450px] max-w-full text-[white]" />
+          <TransactionButton text="Setup profile" className=" mr-auto mt-10 ml-auto w-[450px] max-w-full text-[white]" />
           <TransactionStatus>
             <TransactionStatusLabel />
             <TransactionStatusAction />

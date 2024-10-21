@@ -59,26 +59,26 @@ const ClubCard = ({ amount, clubName, running, steps, calories, ClubId }) => {
   };
 
   return (
-    <div className="my-12 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto -mt-10 p-4">
+    <div className="my-12 max-w-full mx-auto -mt-10 p-4">
       <div className="bg-white border-2 border-blue-300 rounded-lg shadow-lg p-4 md:p-6 flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4">
-        <div className="w-12 h-12 sm:w-16 sm:h-16 bg-blue-100 rounded-lg flex items-center justify-center">
-          <span className="text-xl sm:text-2xl font-bold text-blue-600">
+        <div className="w-12 h-12 sm:w-16 sm:h-16 bg-blue-100 rounded-lg flex flex-row items-center justify-center">
+          <span className="text-xl sm:text-2xl px-2 font-bold text-blue-600">
             {amount}
           </span>
         </div>
-        <div className="flex-grow text-center md:text-left">
-          <h2 className="text-base sm:text-lg font-semibold text-gray-800">
+        <div className="flex text-center md:text-left">
+          <h2 className="text-base sm:text-lg mr-10 font-semibold text-gray-800">
             {clubName}
           </h2>
-          <p className="text-xs sm:text-sm text-gray-600">Run</p>
-          <p className="text-xs sm:text-sm font-medium text-gray-700">
+          <p className="text-xs sm:text-sm text-gray-600">Run:</p>
+          <p className="text-xs sm:text-sm mr-3 font-medium text-gray-700">
             {running} kms
           </p>
-          <p className="text-xs sm:text-sm text-gray-600">Run</p>
-          <p className="text-xs sm:text-sm font-medium text-gray-700">
+          <p className="text-xs sm:text-sm text-gray-600">Steps:</p>
+          <p className="text-xs sm:text-sm font-medium mr-2 text-gray-700">
             {steps} steps
           </p>
-          <p className="text-xs sm:text-sm text-gray-600">Run</p>
+          <p className="text-xs sm:text-sm text-gray-600">Calories:</p>
           <p className="text-xs sm:text-sm font-medium text-gray-700">
             {calories} kcal
           </p>
@@ -92,7 +92,7 @@ const ClubCard = ({ amount, clubName, running, steps, calories, ClubId }) => {
         >
           <TransactionButton
             text="Join Club"
-            className="mt-0 mr-auto ml-auto w-[450px] max-w-full text-[white]"
+            className="mt-0 mr-auto ml-auto w-[200px] max-w-full rounded-full text-[white]"
           />
           <TransactionStatus>
             <TransactionStatusLabel />
