@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+import { useHealthGoalsStore } from "../../store"; // Import the store
 
 const ProgressBar = ({ label, value, max, color }) => (
   <div className="mb-4">
     <div className="flex justify-between mb-1">
       <span className="text-sm font-medium text-gray-700">{label}</span>
       <span className="text-sm font-medium text-gray-700">
-        {value}/{max}
+        {max}/{value}
       </span>
     </div>
     <div className="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden">
@@ -15,7 +16,7 @@ const ProgressBar = ({ label, value, max, color }) => (
         className="h-2.5 rounded-full"
         style={{ backgroundColor: color }}
         initial={{ width: 0 }}
-        animate={{ width: `${(value / max) * 100}%` }}
+        animate={{ width: `${(max / value) * 100}%` }}
         transition={{ duration: 1, ease: "easeOut" }}
       />
     </div>
@@ -29,7 +30,17 @@ const ProgressTab = ({ steps, runs, sleep, calories, walk }) => {
     runs: runs,
     sleep: sleep,
     calories: calories,
+    walk: walk,
   });
+
+  // Use the store
+  const {
+    minSteps,
+    minRunningDistance,
+    minSleepHours,
+    minCaloriesBurnt,
+    minWalkingDistance,
+  } = useHealthGoalsStore();
 
   const handleClubRouter = () => {
     router.push("/club-creation");
@@ -40,14 +51,15 @@ const ProgressTab = ({ steps, runs, sleep, calories, walk }) => {
   };
 
   useEffect(() => {
-    // const generateRandomProgress = () => ({
-    //   steps: Math.floor(Math.random() * 10000),
-    //   runs: Math.floor(Math.random() * 10),
-    //   sleep: Math.floor(Math.random() * 12),
-    //   calories: Math.floor(Math.random() * 3000),
-    // });
-    // setProgress(generateRandomProgress());
-  }, []);
+    // You can keep this effect if you want to update progress based on props
+    setProgress({
+      steps: steps,
+      runs: runs,
+      sleep: sleep,
+      calories: calories,
+      walk: walk,
+    });
+  }, [steps, runs, sleep, calories, walk]);
 
   const containerVariants = {
     hidden: { opacity: 0, y: 50 },
@@ -85,33 +97,41 @@ const ProgressTab = ({ steps, runs, sleep, calories, walk }) => {
           <motion.div variants={itemVariants}>
             <ProgressBar
               label="steps"
-              value={10}
-              max={progress.steps}
+              value={progress.steps}
+              max={minSteps}
               color="#4CAF50"
             />
           </motion.div>
           <motion.div variants={itemVariants}>
             <ProgressBar
               label="runs"
-              value={10}
-              max={progress.runs}
+              value={progress.runs}
+              max={minRunningDistance}
               color="#2196F3"
             />
           </motion.div>
           <motion.div variants={itemVariants}>
             <ProgressBar
               label="sleep"
-              value={10}
-              max={progress.sleep}
+              value={progress.sleep}
+              max={minSleepHours}
               color="#9C27B0"
             />
           </motion.div>
           <motion.div variants={itemVariants}>
             <ProgressBar
               label="calories"
-              value={10}
-              max={progress.calories}
+              value={progress.calories}
+              max={minCaloriesBurnt}
               color="#FF9800"
+            />
+          </motion.div>
+          <motion.div variants={itemVariants}>
+            <ProgressBar
+              label="walk"
+              value={progress.walk}
+              max={minWalkingDistance}
+              color="#E91E63"
             />
           </motion.div>
         </div>

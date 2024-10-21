@@ -12,9 +12,26 @@ interface User {
   joinedClubs: number[];
 }
 
+interface HealthGoals {
+  minCaloriesBurnt: number;
+  minSleepHours: number;
+  minSteps: number;
+  minRunningDistance: number;
+  minWalkingDistance: number;
+}
+
 interface UserState extends User {
   setUser: (user: Partial<User>) => void;
   resetUser: () => void;
+}
+
+interface HealthGoalsState extends HealthGoals {
+  setMinCaloriesBurnt: (minCaloriesBurnt: number) => void;
+  setMinSleepHours: (minSleepHours: number) => void;
+  setMinSteps: (minSteps: number) => void;
+  setMinRunningDistance: (minRunningDistance: number) => void;
+  setMinWalkingDistance: (minWalkingDistance: number) => void;
+  resetHealthGoals: () => void;
 }
 
 export const useUserStore = create<UserState>((set) => ({
@@ -41,5 +58,33 @@ export const useUserStore = create<UserState>((set) => ({
       medicalCondition: false,
       userLocation: "",
       joinedClubs: [],
+    }),
+}));
+export const useHealthGoalsStore = create<HealthGoalsState>((set) => ({
+  minCaloriesBurnt: 0,
+  minSleepHours: 0,
+  minSteps: 0,
+  minRunningDistance: 0,
+  minWalkingDistance: 0,
+
+  setMinCaloriesBurnt: (minCaloriesBurnt) => set(() => ({ minCaloriesBurnt })),
+
+  setMinSleepHours: (minSleepHours) => set(() => ({ minSleepHours })),
+
+  setMinSteps: (minSteps) => set(() => ({ minSteps })),
+
+  setMinRunningDistance: (minRunningDistance) =>
+    set(() => ({ minRunningDistance })),
+
+  setMinWalkingDistance: (minWalkingDistance) =>
+    set(() => ({ minWalkingDistance })),
+
+  resetHealthGoals: () =>
+    set({
+      minCaloriesBurnt: 0,
+      minSleepHours: 0,
+      minSteps: 0,
+      minRunningDistance: 0,
+      minWalkingDistance: 0,
     }),
 }));
