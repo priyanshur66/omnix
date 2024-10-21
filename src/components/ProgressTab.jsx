@@ -1,7 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { useHealthGoalsStore } from "../../store"; // Import the store
+import { useHealthGoalsStore } from "../../store";
+
+import Confetti from "react-confetti";
+
+import { useCallback } from "react";
+import { Avatar, Name } from "@coinbase/onchainkit/identity";
+import {
+  Transaction,
+  TransactionButton,
+  TransactionSponsor,
+  TransactionStatus,
+  TransactionStatusAction,
+  TransactionStatusLabel,
+} from "@coinbase/onchainkit/transaction";
+
+import { Wallet, ConnectWallet } from "@coinbase/onchainkit/wallet";
+import { useAccount } from "wagmi";
+
+import {
+  BASE_SEPOLIA_CHAIN_ID,
+  OmniXAbi,
+  OmniXAddress,
+  SampleUsdtAbi,
+  SampleUsdtAddress,
+} from "../constants/constants";
 
 const ProgressBar = ({ label, value, max, color }) => (
   <div className="mb-4">
@@ -41,6 +65,45 @@ const ProgressTab = ({ steps, runs, sleep, calories, walk }) => {
     minCaloriesBurnt,
     minWalkingDistance,
   } = useHealthGoalsStore();
+
+  const { address } = useAccount();
+
+  // contracts interaction
+
+  const handleOnStatus = useCallback((status) => {
+    console.log("LifecycleStatus", status);
+  }, []);
+
+  const contracts = [
+    {
+      address: SampleUsdtAddress,
+      abi: SampleUsdtAbi,
+      functionName: "approve",
+      args: [OmniXAddress, 10000000000000000000000000],
+    },
+    {
+      address: OmniXAddress,
+      abi: OmniXAbi,
+      functionName: "checkHealthGoalsAndReward",
+      args: [
+        address,
+        minCaloriesBurnt,
+        minSleepHours,
+        minSteps,
+        minRunningDistance,
+        minWalkingDistance,
+      ],
+    },
+  ];
+
+  const handleError = (err) => {
+    console.error("Transaction error:", err);
+  };
+
+  const handleSuccess = (response) => {
+    console.log("Transaction successful", response);
+    
+  };
 
   const handleClubRouter = () => {
     router.push("/club-creation");
@@ -137,12 +200,22 @@ const ProgressTab = ({ steps, runs, sleep, calories, walk }) => {
         </div>
       </motion.div>
       <div className="flex flex-col sm:flex-row justify-center w-full gap-4">
-        <button
-          className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-lg font-bold w-full sm:w-auto"
-          onClick={handleClubRouter}
+        <Transaction
+          contracts={contracts}
+          className="w-[450px]"
+          chainId={BASE_SEPOLIA_CHAIN_ID}
+          onError={handleError}
+          onSuccess={handleSuccess}
         >
-          Collect remaining amount
-        </button>
+          <TransactionButton
+            text="Claim reward"
+            className="mt-0 mr-auto ml-auto w-[450px] max-w-full text-[white]"
+          />
+          <TransactionStatus>
+            <TransactionStatusLabel />
+            <TransactionStatusAction />
+          </TransactionStatus>
+        </Transaction>
         <button
           className="bg-black hover:bg-white hover:text-black text-white py-2 px-6 rounded-full font-bold w-full sm:w-auto"
           onClick={handleWatchSimulation}

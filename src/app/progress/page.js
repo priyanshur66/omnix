@@ -6,6 +6,7 @@ import ClubCard from "@/components/ClubJoinCard"
 import { useAccount } from 'wagmi';
 import { useRouter } from 'next/navigation';
 import useReadFromOmniXContract from "@/hooks/useReadFromOmniXContract";
+import useReadFromUsdtContract from "@/hooks/useReadFromUsdtContract.jsx";
 export default function Progress() {
     const router = useRouter();
     const [newProfile, setNewProfile] = useState(false);
@@ -26,6 +27,11 @@ export default function Progress() {
         paraArr: [],
     });
     console.log("resData", allClubsData);
+    const { resData: usdtData } = useReadFromUsdtContract({
+        funcName: "balanceOf",
+        paraArr: [address],
+    });
+    console.log("usdtData", (String(usdtData).slice(0, -18)));
 
     useEffect(() => {
         if (!data) {
@@ -33,20 +39,20 @@ export default function Progress() {
             setNewProfile(true);
             return;
         }
-    
+
         // Parse and set health data if available
         const minCaloriesBurnt = Number(String(data?.minCaloriesBurnt)) || 0;
         const minSleepHours = Number(String(data?.minSleepHours)) || 0;
         const minSteps = Number(String(data?.minSteps)) || 0;
         const minRunningDistance = Number(String(data?.minRunningDistance)) || 0;
         const minWalkingDistance = Number(String(data?.minWalkingDistance)) || 0;
-    
+
         setMinCaloriesBurnt(minCaloriesBurnt);
         setMinSleepHours(minSleepHours);
         setMinSteps(minSteps);
         setMinRunningDistance(minRunningDistance);
         setMinWalkingDistance(minWalkingDistance);
-    
+
         // Check if a new profile needs to be created based on data
         if (
             minCaloriesBurnt === 0 &&
@@ -60,11 +66,11 @@ export default function Progress() {
         } else {
             setNewProfile(false);
         }
-    
+
         // Set clubs data
         setAllClubs(allClubsData || []);
     }, [data, allClubsData]);
-    
+
 
 
 
@@ -78,7 +84,7 @@ export default function Progress() {
                             join some clubs</div>}
                     </div>
                     <div className="w-full lg:w-1/2">
-                        <h1 className="text-white text-3xl md:text-4xl lg:text-5xl font-bold text-center mt-10 mb-6">Join club</h1> <button className='text-white border px-10 py-1 bg-black hover:bg-white hover:text-black rounded-full ml-64 mb-8' onClick={() => {
+                        <h1 className="text-white text-3xl md:text-4xl lg:text-5xl font-bold text-center mt-10 mb-6">Join club <span>Your Balance: {(String(usdtData).slice(0, -18))}</span></h1> <button className='text-white border px-10 py-1 bg-black hover:bg-white hover:text-black rounded-full ml-64 mb-8' onClick={() => {
                             router.push("/club-creation")
                         }}>create new club</button>
                         {allClubsData?.map((club, index) => (

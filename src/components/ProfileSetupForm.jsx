@@ -19,8 +19,8 @@ import { useAccount } from "wagmi";
 
 import {
   BASE_SEPOLIA_CHAIN_ID,
-  BasedPayAddress,
-  BasedPayAbi,
+  OmniXAbi,
+  OmniXAddress,
   SampleUsdtAbi,
   SampleUsdtAddress,
 } from "../constants/constants";
@@ -51,11 +51,11 @@ export default function ProfileHealthForm() {
       address: SampleUsdtAddress,
       abi: SampleUsdtAbi,
       functionName: "approve",
-      args: [BasedPayAddress, 10000000000000000000000000],
+      args: [OmniXAddress, 10000000000000000000000000],
     },
     {
-      address: BasedPayAddress,
-      abi: BasedPayAbi,
+      address: OmniXAddress,
+      abi: OmniXAbi,
       functionName: "createNewUser",
       args: [
         formData.name,
@@ -256,7 +256,7 @@ export default function ProfileHealthForm() {
               className="block text-sm font-medium text-gray-700 mb-1"
               htmlFor="height"
             >
-              Height
+              Height (cms)
             </label>
             <input
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -281,7 +281,7 @@ export default function ProfileHealthForm() {
               className="block text-sm font-medium text-gray-700 mb-1"
               htmlFor="weight"
             >
-              Weight
+              Weight (KGs)
             </label>
             <input
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
